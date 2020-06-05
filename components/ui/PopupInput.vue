@@ -15,6 +15,11 @@
 <script>
 export default {
   props: ['labelText', 'type', 'placeholder', 'name', 'required'],
+  data() {
+    return {
+      content: this.value,
+    };
+  },
 };
 </script>
 

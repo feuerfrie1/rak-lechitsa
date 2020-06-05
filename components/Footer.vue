@@ -34,7 +34,7 @@
           </div>
           <p
             class="container__link container__link_color_another-black"
-            @click="showPopup"
+            @click="togglePopup"
           >
             Поделитесь &#8599;
           </p>
@@ -46,59 +46,50 @@
           Сделано студентами Яндекс Практикум
         </p>
       </div>
-      <overlay v-if="popupShown" @overlayClick="showPopup">
-        <popup @closePopup="showPopup">
-          <h2 class="popup__title">Поделитесь</h2>
-          <ul class="popup__list">
-            <li>
-              <a href class="popup__link">
-                <img
-                  src="../static/facebook.svg"
-                  alt
-                  class="popup__link-icon"
-                />
-              </a>
-            </li>
-            <li>
-              <a href class="popup__link">
-                <img src="../static/twitter.svg" alt class="popup__link-icon" />
-              </a>
-            </li>
-            <li>
-              <a href class="popup__link">
-                <img src="../static/vk.svg" alt class="popup__link-icon" />
-              </a>
-            </li>
-            <li>
-              <a href class="popup__link">
-                <img src="../static/ok.svg" alt class="popup__link-icon" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/raklechitsa/"
-                target="_blank"
-                class="popup__link"
-              >
-                <img
-                  src="../static/instagram.svg"
-                  alt
-                  class="popup__link-icon"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/results?search_query=%23%D1%8D%D1%82%D0%BE%D0%BD%D0%B5%D0%BB%D0%B5%D1%87%D0%B8%D1%82%D1%81%D1%8F"
-                target="_blank"
-                class="popup__link"
-              >
-                <img src="../static/youTube.svg" alt class="popup__link-icon" />
-              </a>
-            </li>
-          </ul>
-        </popup>
-      </overlay>
+      <overlay v-if="popupShown" @overlayClick="togglePopup"></overlay>
+      <popup v-if="popupShown" @closePopup="togglePopup">
+        <h2 class="popup__title">Поделитесь</h2>
+        <ul class="popup__list">
+          <li>
+            <a href class="popup__link">
+              <img src="../static/facebook.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+          <li>
+            <a href class="popup__link">
+              <img src="../static/twitter.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+          <li>
+            <a href class="popup__link">
+              <img src="../static/vk.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+          <li>
+            <a href class="popup__link">
+              <img src="../static/ok.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/raklechitsa/"
+              target="_blank"
+              class="popup__link"
+            >
+              <img src="../static/instagram.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/results?search_query=%23%D1%8D%D1%82%D0%BE%D0%BD%D0%B5%D0%BB%D0%B5%D1%87%D0%B8%D1%82%D1%81%D1%8F"
+              target="_blank"
+              class="popup__link"
+            >
+              <img src="../static/youTube.svg" alt class="popup__link-icon" />
+            </a>
+          </li>
+        </ul>
+      </popup>
     </footer>
   </div>
 </template>
@@ -112,13 +103,13 @@ export default {
     overlay: Overlay,
   },
   methods: {
-    showPopup() {
-      this.$store.commit('popup/togglePopUp');
+    togglePopup() {
+      this.$store.commit('popup/togglePopupSocial');
     },
   },
   computed: {
     popupShown() {
-      return this.$store.getters['popup/getPopupShown'];
+      return this.$store.getters['popup/getPopupSocial'];
     },
   },
 };

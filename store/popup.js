@@ -1,15 +1,22 @@
 export const state = () => ({
-  isPopupShown: false,
+  isPopupSocial: false,
+  isPopupForm: false,
 });
 
 export const mutations = {
-  togglePopUp(state) {
-    state.isPopupShown = !state.isPopupShown;
+  togglePopupSocial(state) {
+    return (state.isPopupSocial = !state.isPopupSocial);
+  },
+  togglePopupForm(state) {
+    return (state.isPopupForm = !state.isPopupForm);
   },
 };
 
 export const getters = {
-  getPopupShown(state) {
-    return state.isPopupShown;
+  getPopupSocial(state) {
+    return state.isPopupSocial;
+  },
+  getPopupForm(state) {
+    return state.isPopupForm;
   },
 };
