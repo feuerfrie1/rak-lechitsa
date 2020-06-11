@@ -45,7 +45,7 @@
         :text="'Оставить контакт'"
       ></purple-button>
     </div>
-    <overlay v-if="popupShown" @overlayClick="togglePopup"></overlay>
+    <overlay v-if="popupShown" @overlayClick="togglePopup" />
     <popup v-if="popupShown" @closePopup="togglePopup" class="popup">
       <quiz />
     </popup>
