@@ -46,7 +46,7 @@
           Сделано студентами Яндекс Практикум
         </p>
       </div>
-      <overlay v-if="popupShown" @overlayClick="togglePopup"></overlay>
+      <overlay v-if="popupShown" @overlayClick="togglePopup" />
       <popup v-if="popupShown" @closePopup="togglePopup">
         <h2 class="popup__title">Поделитесь</h2>
         <ul class="popup__list">
