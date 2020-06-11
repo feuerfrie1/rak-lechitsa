@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     async nextQuestions() {
-      console.log({ answer: this.answer });
       await this.$store.dispatch('quiz/NEXT_QUESTION', {
         answer: this.answer,
       });
