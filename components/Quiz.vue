@@ -81,7 +81,9 @@ export default {
   line-height: 24px;
   margin: 40px 40px 0;
 }
-
+.quiz__question-additional {
+  color: #666666;
+}
 .quiz__buttons {
   margin-top: 210px;
   position: absolute;
