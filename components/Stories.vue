@@ -2,85 +2,21 @@
   <section class="stories" id="stories">
     <h2 class="stories__title">Истории неизлечимых привычек</h2>
     <slot></slot>
-    <stories-grid />
+    <stories-grid items-on-page="8" />
     <button class="stories__more" @click="goToStories">Больше статей</button>
   </section>
 </template>
 
 <script>
-import Storycard from '@/components/Storycard';
 import StoriesGrid from '@/components/StoriesGrid';
 export default {
   components: {
-    'story-card': Storycard,
     'stories-grid': StoriesGrid,
   },
   methods: {
     goToStories() {
       this.$router.push('/stories');
     },
-  },
-  data() {
-    return {
-      storycards: [
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '1',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '2',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '3',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '4',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '5',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '6',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '7',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '8',
-        },
-      ],
-    };
   },
 };
 </script>

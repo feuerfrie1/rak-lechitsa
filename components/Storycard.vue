@@ -1,6 +1,6 @@
 <template>
   <div class="story-card">
-    <img :src="photo" class="story-card__photo" />
+    <img :src="imageUrl" class="story-card__photo" />
     <p class="story-card__name">{{ name }}</p>
     <p class="story-card__quote">{{ quote }}</p>
   </div>
@@ -9,10 +9,10 @@
 <script>
 export default {
   props: {
-    photo: String,
+    imageUrl: String,
     name: String,
     quote: String,
-    id: String,
+    id: Number,
     largeStyle: {},
   },
   data() {

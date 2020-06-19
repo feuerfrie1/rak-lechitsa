@@ -1,12 +1,17 @@
 <template>
   <div>
     <ul class="stories__container">
-      <li v-for="item in storycards" :key="item.id" @click="goToStory(item.id)">
+      <li
+        v-for="item in paginatedData"
+        :key="item.id"
+        @click="goToStory(item.id)"
+      >
         <story-card
-          :photo="item.photo"
-          :name="item.name"
-          :quote="item.quote"
+          :imageUrl="defineImage(item)"
+          :name="item.author"
+          :quote="item.title"
           :id="item.id"
+          :date="item.date"
         />
       </li>
     </ul>
@@ -15,76 +20,60 @@
 
 <script>
 import Storycard from '@/components/Storycard';
+
 export default {
   components: {
     'story-card': Storycard,
+  },
+  props: {
+    itemsOnPage: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      baseUrl: process.env.baseUrl,
+      pageNumber: 0,
+    };
   },
   methods: {
     goToStory(id) {
       this.$router.push(`/stories/${id}`);
     },
+    defineImage(item) {
+      if (!item.ImageUrl || item.ImageUrl.length === 0) {
+        return '@/assets/no_image.png';
+      }
+      const formats = item.ImageUrl[0].formats;
+      if (!formats.small || !formats.small.url) {
+        return '@/assets/no_image.png';
+      }
+      return new URL(formats.small.url, this.baseUrl).toString();
+    },
   },
-  data() {
-    return {
-      storycards: [
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '1',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '2',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '3',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '4',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '5',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '6',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '7',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '8',
-        },
-      ],
-    };
+  computed: {
+    storyCards() {
+      let getter = this.$store.getters['stories/getStories'];
+      console.log(getter);
+      return getter;
+    },
+    paginatedData() {
+      const start = this.pageNumber * this.itemsOnPage;
+      const end = start + this.itemsOnPage;
+      console.log(this.storyCards);
+      if (!this.storyCards) {
+        return [];
+      }
+      console.log(start);
+      console.log(end);
+      let slice = this.storyCards.slice(start, end);
+      console.log(slice);
+      return slice;
+    },
+  },
+  beforeMount() {
+    this.$store.dispatch('stories/fetchStories');
   },
 };
 </script>
