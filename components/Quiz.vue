@@ -86,7 +86,7 @@ export default {
 }
 .quiz__buttons {
   margin-top: 210px;
-  position: absolute;
+  position: relative;
   left: 40px;
   bottom: 40px;
 }

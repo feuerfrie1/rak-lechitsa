@@ -1,16 +1,13 @@
 <template>
-  <label class="input">
-    {{ labelText }}
-    <input
-      class="input"
-      :type="type"
-      :placeholder="placeholder"
-      :name="name"
-      :required="required"
-      v-model="content"
-      @input="handleInput"
-    />
-  </label>
+  <input
+    class="input"
+    :type="type"
+    :placeholder="placeholder"
+    :name="name"
+    :required="required"
+    v-model="content"
+    @input="handleInput"
+  />
 </template>
 
 <script>

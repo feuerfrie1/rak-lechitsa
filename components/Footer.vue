@@ -46,7 +46,6 @@
           Сделано студентами Яндекс Практикум
         </p>
       </div>
-      <overlay v-if="popupShown" @overlayClick="togglePopup" />
       <popup v-if="popupShown" @closePopup="togglePopup">
         <h2 class="popup__title">Поделитесь</h2>
         <ul class="popup__list">
@@ -96,11 +95,9 @@
 
 <script>
 import PopUp from '@/components/PopUp';
-import Overlay from '@/components/ui/Overlay';
 export default {
   components: {
     popup: PopUp,
-    overlay: Overlay,
   },
   methods: {
     togglePopup() {

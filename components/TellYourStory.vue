@@ -45,57 +45,28 @@
         :text="'Оставить контакт'"
       ></purple-button>
     </div>
-    <overlay v-if="popupShown" @overlayClick="togglePopup" />
-    <popup v-if="popupShown" @closePopup="togglePopup" class="popup">
-      <quiz />
-    </popup>
   </section>
 </template>
 
 <script>
 import PurpleButton from '@/components/ui/PurpleButton';
-import PopUp from '@/components/PopUp';
-import Overlay from '@/components/ui/Overlay';
-import Quiz from '@/components/Quiz';
+
 export default {
   components: {
     'purple-button': PurpleButton,
-    popup: PopUp,
-    overlay: Overlay,
-    quiz: Quiz,
   },
 
   data() {
     return {
-      // popupShown: false,
       firstShown: true,
       secondShown: false,
-      // currentQuestion: 1,
-      // data: {
-      //   1: {
-      //     title: 'Шаг 1 из 12',
-      //     question: '1',
-      //   },
-      //   2: {
-      //     title: 'Шаг 2 из 12',
-      //     question: '2',
-      //   },
-      // },
     };
   },
   methods: {
     togglePopup() {
       this.$store.commit('popup/togglePopupForm');
     },
-    // popupHandler() {
-    //   this.popupShown = !this.popupShown;
-    // },
-    // nextQuestion() {
-    //   this.currentQuestion = this.currentQuestion + 1;
-    // },
-    // prevQuestion() {
-    //   this.currentQuestion = this.currentQuestion - 1;
-    // },
+
     showFirst() {
       this.firstShown = true;
       this.secondShown = false;
@@ -109,9 +80,6 @@ export default {
     popupShown() {
       return this.$store.getters['popup/getPopupForm'];
     },
-    // questions() {
-    //   return this.$store.getters['questions/getQuestions'];
-    // },
   },
 };
 </script>
@@ -245,7 +213,7 @@ export default {
   line-height: 22px;
   color: #666;
 }
-.popup {
+/* .popup {
   min-height: 600px;
-}
+} */
 </style>
