@@ -35,68 +35,38 @@
         </p>
       </div>
       <purple-button
-        @btnClick="popupHandler"
+        @btnClick="togglePopup"
         v-if="firstShown"
         :text="'Заполнить форму'"
-      >
-      </purple-button>
-      <purple-button v-if="secondShown" :text="'Оставить контакт'">
-      </purple-button>
+      ></purple-button>
+      <purple-button
+        @btnClick="togglePopup"
+        v-if="secondShown"
+        :text="'Оставить контакт'"
+      ></purple-button>
     </div>
-    <overlay v-if="popupShown" @overlayClick="popupHandler"></overlay>
-    <popup v-if="popupShown" @closePopup="popupHandler" class="popup">
-      <quiz
-        :title="data[currentQuestion].title"
-        :question="data[currentQuestion].question"
-        :onNext="nextQuestion"
-        :onPrev="prevQuestion"
-      />
-    </popup>
   </section>
 </template>
 
 <script>
 import PurpleButton from '@/components/ui/PurpleButton';
-import PopUp from '@/components/PopUp';
-import Overlay from '@/components/ui/Overlay';
-import Quiz from '@/components/Quiz';
+
 export default {
   components: {
     'purple-button': PurpleButton,
-    popup: PopUp,
-    overlay: Overlay,
-    quiz: Quiz,
   },
 
   data() {
     return {
-      popupShown: false,
       firstShown: true,
       secondShown: false,
-      currentQuestion: 1,
-      data: {
-        1: {
-          title: 'Шаг 1 из 12',
-          question: '1',
-        },
-        2: {
-          title: 'Шаг 2 из 12',
-          question: '2',
-        },
-      },
     };
   },
   methods: {
-    popupHandler() {
-      this.popupShown = !this.popupShown;
+    togglePopup() {
+      this.$store.commit('popup/togglePopupForm');
     },
-    nextQuestion() {
-      console.log('event');
-      this.currentQuestion = this.currentQuestion + 1;
-    },
-    prevQuestion() {
-      this.currentQuestion = this.currentQuestion - 1;
-    },
+
     showFirst() {
       this.firstShown = true;
       this.secondShown = false;
@@ -104,6 +74,11 @@ export default {
     showSecond() {
       this.firstShown = false;
       this.secondShown = true;
+    },
+  },
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupForm'];
     },
   },
 };
@@ -238,7 +213,7 @@ export default {
   line-height: 22px;
   color: #666;
 }
-.popup {
+/* .popup {
   min-height: 600px;
-}
+} */
 </style>

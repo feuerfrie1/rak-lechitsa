@@ -12,14 +12,20 @@
           >Главная</a
         >
         <a class="header__link" href="#stories">Истории</a>
-        <a class="header__link" href="#tellstory">Рассказать историю</a>
+        <a class="header__link" @click="togglePopup">Рассказать историю</a>
       </nav>
     </div>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    togglePopup() {
+      this.$store.commit('popup/togglePopupForm');
+    },
+  },
+};
 </script>
 
 <style scoped>

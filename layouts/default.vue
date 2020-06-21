@@ -2,6 +2,9 @@
   <div>
     <main-header />
     <nuxt />
+    <popup v-if="popupShown" @closePopup="togglePopup">
+      <quiz />
+    </popup>
     <my-footer />
   </div>
 </template>
@@ -9,10 +12,24 @@
 <script>
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PopUp from '@/components/PopUp';
+import Quiz from '@/components/Quiz';
 export default {
   components: {
     'main-header': Header,
     'my-footer': Footer,
+    popup: PopUp,
+    quiz: Quiz,
+  },
+  methods: {
+    togglePopup() {
+      this.$store.commit('popup/togglePopupForm');
+    },
+  },
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupForm'];
+    },
   },
 };
 </script>

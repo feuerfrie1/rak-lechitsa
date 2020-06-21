@@ -17,6 +17,8 @@
       </div>
       <div class="histories-of-people__video-container">
         <div class="histories-of-people__video-play">
+
+=======
           <!--  <img class="histories-of-people__video" src="@/static/Snimok.png" /> -->
           <iframe
             width="560"

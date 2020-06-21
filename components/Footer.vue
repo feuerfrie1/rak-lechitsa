@@ -32,7 +32,7 @@
           </div>
           <p
             class="container__link container__link_color_another-black"
-            @click="popupHandler"
+            @click="togglePopup"
           >
             Поделитесь &#8599;
           </p>
@@ -44,8 +44,7 @@
           Сделано студентами Яндекс Практикум
         </p>
       </div>
-      <overlay v-if="popupShown" @overlayClick="popupHandler"></overlay>
-      <popup v-if="popupShown" @closePopup="popupHandler">
+      <popup v-if="popupShown" @closePopup="togglePopup">
         <h2 class="popup__title">Поделитесь</h2>
         <ul class="popup__list">
           <li>
@@ -94,21 +93,19 @@
 
 <script>
 import PopUp from '@/components/PopUp';
-import Overlay from '@/components/ui/Overlay';
 export default {
   components: {
     popup: PopUp,
-    overlay: Overlay,
   },
   methods: {
-    popupHandler() {
-      this.popupShown = !this.popupShown;
+    togglePopup() {
+      this.$store.commit('popup/togglePopupSocial');
     },
   },
-  data() {
-    return {
-      popupShown: false,
-    };
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupSocial'];
+    },
   },
 };
 </script>

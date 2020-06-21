@@ -1,20 +1,45 @@
 <template>
-  <label class="input">
-    {{ labelText }}
-    <input
-      class="input"
-      :type="type"
-      :placeholder="placeholder"
-      :name="name"
-      :required="required"
-      @input="$emit('input', $event.target.value)"
-    />
-  </label>
+  <input
+    class="input"
+    :type="type"
+    :placeholder="placeholder"
+    :name="name"
+    :required="required"
+    v-model="content"
+    @input="handleInput"
+  />
 </template>
 
 <script>
 export default {
-  props: ['labelText', 'type', 'placeholder', 'name', 'required'],
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: String,
+      default: 'text',
+    },
+    placeholder: String,
+  },
+  data() {
+    return {
+      content: this.value,
+    };
+  },
+  watch: {
+    value(newVal, oldVal) {
+      if (newVal !== this.content) {
+        this.content = newVal;
+      }
+    },
+  },
+  methods: {
+    handleInput(content) {
+      this.$emit('input', this.content);
+    },
+  },
 };
 </script>
 
