@@ -1,87 +1,22 @@
 <template>
-  <section class="stories">
+  <section class="stories" id="stories">
     <h2 class="stories__title">Истории неизлечимых привычек</h2>
-    <ul class="stories__container">
-      <li v-for="item in storycards" :key="item.id">
-        <story-card
-          :photo="item.photo"
-          :name="item.name"
-          :quote="item.quote"
-          :link="item.link"
-        />
-      </li>
-    </ul>
-    <button class="stories__more">Больше статей</button>
+    <slot></slot>
+    <stories-grid items-on-page="8" />
+    <button class="stories__more" @click="goToStories">Больше статей</button>
   </section>
 </template>
 
 <script>
-import Storycard from '@/components/Storycard';
+import StoriesGrid from '@/components/StoriesGrid';
 export default {
   components: {
-    'story-card': Storycard,
+    'stories-grid': StoriesGrid,
   },
-  data() {
-    return {
-      storycards: [
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '1',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '2',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '3',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '4',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '5',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '6',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '7',
-        },
-        {
-          photo: '/rectangle.jpg',
-          name: 'Ник Вуйчич',
-          quote: 'Я родился в Москве в 70-м на краю города.',
-          link: '',
-          id: '8',
-        },
-      ],
-    };
+  methods: {
+    goToStories() {
+      this.$router.push('/stories');
+    },
   },
 };
 </script>
@@ -91,7 +26,6 @@ export default {
   max-width: 1320px;
   margin: 0 auto;
   padding-bottom: 100px;
-  padding-top: 100px;
 }
 
 .stories__title {
@@ -129,7 +63,7 @@ export default {
 
 .story-card__quote {
   padding-top: 14px;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   color: #666;
@@ -144,7 +78,7 @@ export default {
   color: inherit;
   background-color: #fbfbfb;
   cursor: pointer;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 20px;
 }

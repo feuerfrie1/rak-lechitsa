@@ -29,11 +29,10 @@ export default {
         rel: 'stylesheet',
         href: '/fonts/fonts.css',
       },
-      {
-        rel: 'normalize',
-        href: '/vendor/normalize.css',
-      },
     ],
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://strapi.kruzhok.io/',
   },
   /*
    ** Customize the progress-bar color
@@ -52,7 +51,18 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: [
+    // Simple usage
+    '@nuxtjs/dotenv',
+
+    // With options
+    [
+      '@nuxtjs/dotenv',
+      {
+        /* module options */
+      },
+    ],
+  ],
   /*
    ** Nuxt.js modules
    */

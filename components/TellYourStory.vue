@@ -1,54 +1,99 @@
 <template>
-  <section class="your-story">
+  <section class="your-story" id="tellstory">
     <div class="your-story__container">
       <h2 class="your-story__title">Расскажите свою историю</h2>
-      <p class="your-story__description">
+      <p class="your-story__text">
         Мы публикуем новые истории на сайте раз в неделю. Есть 2 варианта
         поделиться своей историей неизлечимых привычек, навязчивых идей и
         болезненных привязанностей.
       </p>
       <ul class="your-story__option">
-        <li>
-          <a
-            href="#"
-            class="your-story__option-link your-story__option-link_first"
-            >1-й вариант</a
-          >
+        <li
+          class="your-story__option-link your-story__option-link_first"
+          @click="showFirst"
+          v-bind:class="{ option__active: firstShown }"
+        >
+          1-й вариант
         </li>
-        <li>
-          <a
-            href="#"
-            class="your-story__option-link your-story__option-link_second"
-            >2-й вариант</a
-          >
+        <li
+          class="your-story__option-link your-story__option-link_second"
+          @click="showSecond"
+          v-bind:class="{ option__active: secondShown }"
+        >
+          2-й вариант
         </li>
       </ul>
-      <p class="your-story__prompt">
-        Заполнить подробную форму прямо на сайте и мы опубликуем вашу историю
-        после проверки. Пожалуйста, заполняйте все пункты корректно, если вы
-        испытаете какие-то сложности, воспользуйтесь 2-м вариантом.
-      </p>
-      <button class="your-story__form">Заполнить форму</button>
+      <div class="your-story__description">
+        <p class="your-story__write-in" v-if="firstShown">
+          Заполнить подробную форму прямо на сайте и мы опубликуем вашу историю
+          после проверки. Пожалуйста, заполняйте все пункты корректно, если вы
+          испытаете какие-то сложности, воспользуйтесь 2-м вариантом.
+        </p>
+        <p class="your-story__leave-contact" v-if="secondShown">
+          Оставить контакт (почту или номер телефона) и мы свяжемся с вами,
+          зададим вопросы, уточним детали вашей истории.
+        </p>
+      </div>
+      <purple-button
+        @btnClick="togglePopup"
+        v-if="firstShown"
+        :text="'Заполнить форму'"
+      ></purple-button>
+      <purple-button
+        @btnClick="togglePopup"
+        v-if="secondShown"
+        :text="'Оставить контакт'"
+      ></purple-button>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+import PurpleButton from '@/components/ui/PurpleButton';
+
+export default {
+  components: {
+    'purple-button': PurpleButton,
+  },
+
+  data() {
+    return {
+      firstShown: true,
+      secondShown: false,
+    };
+  },
+  methods: {
+    togglePopup() {
+      this.$store.commit('popup/togglePopupForm');
+    },
+
+    showFirst() {
+      this.firstShown = true;
+      this.secondShown = false;
+    },
+    showSecond() {
+      this.firstShown = false;
+      this.secondShown = true;
+    },
+  },
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupForm'];
+    },
+  },
+};
 </script>
 
 <style scoped>
 .your-story {
-  max-width: 1440px;
-  margin: 0 auto;
+  max-width: 100%;
+  padding: 100px 60px 100px 60px;
   background-color: #f7f7f7;
   margin-bottom: 100px;
 }
 
 .your-story__container {
-  max-width: 1320px;
   margin: 0 auto;
-  padding: 100px 0 100px 0;
   display: grid;
   justify-content: space-between;
   grid-template-columns: repeat(2, 50%);
@@ -70,20 +115,34 @@ export default {};
   grid-column-start: 1;
 }
 
-.your-story__description {
+.your-story__text {
   max-width: 340px;
-  font-weight: normal;
+  grid-row-start: 2;
+  grid-column-start: 1;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #666;
+}
+
+.your-story__description {
+  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #666;
   grid-row-start: 2;
-  grid-column-start: 1;
+  grid-column-start: 2;
 }
 
 .your-story__write-in {
   max-width: 640px;
   grid-row-start: 2;
   grid-column-start: 3;
+}
+
+.your-story__leave-contact {
+  max-width: 640px;
 }
 
 .your-story__prompt {
@@ -127,20 +186,25 @@ export default {};
   text-align: right;
 }
 
-.your-story__option-link_first {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000;
-  text-decoration: none;
-}
-
-.your-story__option-link_second {
-  font-weight: 500;
+.your-story__option-link {
+  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #a2a2a2;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.your-story__option-link_first {
+  padding-bottom: 10px;
+}
+
+.your-story__option-link:hover {
+  color: #000;
+}
+
+.option__active {
+  color: #000;
 }
 
 .your-story__prompt {
@@ -149,4 +213,7 @@ export default {};
   line-height: 22px;
   color: #666;
 }
+/* .popup {
+  min-height: 600px;
+} */
 </style>

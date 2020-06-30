@@ -78,7 +78,7 @@ export default {
 .about {
   background-color: #613a93;
   color: #ffffff;
-  padding: 80px 60px 60px 100px;
+  padding: 80px 60px 60px 80px;
   box-sizing: border-box;
   min-height: 650px;
 }
@@ -103,9 +103,8 @@ export default {
   margin: 32px 0;
   display: flex;
   justify-content: space-between;
-
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
 }
@@ -146,13 +145,14 @@ export default {
 }
 .about__active {
   color: #ffffff;
-  text-decoration: underline;
 }
 .about__cancer:hover {
   color: #ffffff;
+  cursor: pointer;
 }
 .about__story:hover {
   color: #ffffff;
+  cursor: pointer;
 }
 @media screen and (max-width: 1281px) {
   .about {

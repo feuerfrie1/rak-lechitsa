@@ -7,19 +7,32 @@
         </h2>
         <ul class="footer__list">
           <li class="footer__list-item">
-            <a href class="footer__link">Главная</a>
+            <a class="footer__link" href="#main">Главная</a>
           </li>
           <li class="footer__list-item">
-            <a href class="footer__link">Истории</a>
+            <a class="footer__link" href="#stories">Истории</a>
           </li>
         </ul>
         <div class="footer__container-link">
-          <a href class="container__link"
-            >Мы&nbsp;в&nbsp;Инстаграме&nbsp;и&nbsp;Youtube</a
-          >
+          <div class="footer__links">
+            <a
+              class="container__link"
+              href="https://www.instagram.com/raklechitsa/"
+              target="_blank"
+            >
+              Мы в <span class="container__link-underline">Инстаграме</span>
+            </a>
+            <a
+              class="container__link"
+              href="https://www.youtube.com/results?search_query=%23%D1%8D%D1%82%D0%BE%D0%BD%D0%B5%D0%BB%D0%B5%D1%87%D0%B8%D1%82%D1%81%D1%8F"
+              target="_blank"
+            >
+              и <span class="container__link-underline">Youtube</span>
+            </a>
+          </div>
           <p
             class="container__link container__link_color_another-black"
-            @click="popupHandler"
+            @click="togglePopup"
           >
             Поделитесь &#8599;
           </p>
@@ -31,8 +44,7 @@
           Сделано студентами Яндекс Практикум
         </p>
       </div>
-      <overlay v-if="popupShown" @overlayClick="popupHandler"></overlay>
-      <popup v-if="popupShown" @closePopup="popupHandler">
+      <popup v-if="popupShown" @closePopup="togglePopup">
         <h2 class="popup__title">Поделитесь</h2>
         <ul class="popup__list">
           <li>
@@ -56,12 +68,20 @@
             </a>
           </li>
           <li>
-            <a href class="popup__link">
+            <a
+              href="https://www.instagram.com/raklechitsa/"
+              target="_blank"
+              class="popup__link"
+            >
               <img src="../static/instagram.svg" alt class="popup__link-icon" />
             </a>
           </li>
           <li>
-            <a href class="popup__link">
+            <a
+              href="https://www.youtube.com/results?search_query=%23%D1%8D%D1%82%D0%BE%D0%BD%D0%B5%D0%BB%D0%B5%D1%87%D0%B8%D1%82%D1%81%D1%8F"
+              target="_blank"
+              class="popup__link"
+            >
               <img src="../static/youTube.svg" alt class="popup__link-icon" />
             </a>
           </li>
@@ -73,21 +93,19 @@
 
 <script>
 import PopUp from '@/components/PopUp';
-import Overlay from '@/components/ui/Overlay';
 export default {
   components: {
     popup: PopUp,
-    overlay: Overlay,
   },
   methods: {
-    popupHandler() {
-      this.popupShown = !this.popupShown;
+    togglePopup() {
+      this.$store.commit('popup/togglePopupSocial');
     },
   },
-  data() {
-    return {
-      popupShown: false,
-    };
+  computed: {
+    popupShown() {
+      return this.$store.getters['popup/getPopupSocial'];
+    },
   },
 };
 </script>
@@ -120,11 +138,17 @@ export default {
   line-height: 36px;
 }
 .footer__container-link {
+  max-width: 300px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
   display: flex;
   grid-column-start: 4;
   justify-content: space-between;
   flex-direction: column;
 }
+
 .footer__list {
   padding: 0;
   list-style: none;
@@ -132,7 +156,7 @@ export default {
   justify-content: space-between;
   flex-basis: 188px;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 18px;
   line-height: 24px;
 }
@@ -143,19 +167,25 @@ export default {
   text-decoration: none;
   color: currentColor;
 }
-.footer__container-link {
-  max-width: 300px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
+.footer__link:hover {
+  opacity: 0.8;
 }
 .container__link {
   text-decoration: none;
   color: currentColor;
+  cursor: default;
+}
+.container__link-underline {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+.container__link-underline:hover {
+  opacity: 0.8;
 }
 .container__link_color_another-black {
+  width: fit-content;
   color: #121212;
+  cursor: pointer;
 }
 .footer__copyright {
   margin: 0 60px 60px;
@@ -163,7 +193,7 @@ export default {
   justify-content: space-between;
   color: #898989;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 18px;
   line-height: 18px;
 }
@@ -190,7 +220,7 @@ export default {
 @media screen and (max-width: 1281px) {
   .footer__container {
     grid-template-columns: repeat(3, 1fr);
-    margin: 50зч 50px 0;
+    margin: 50px 50px 0;
   }
   .footer__title {
     max-width: 305px;

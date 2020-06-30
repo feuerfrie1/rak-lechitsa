@@ -1,8 +1,10 @@
 <template>
   <section class="instagram">
     <div class="purple-strip">
-      рассказывайте ваши истории в Инстаграм
-      <span class="hashtag">#этонелечится</span>
+      <p class="purple-strip__title">
+        рассказывайте ваши истории в Инстаграм
+        <span class="hashtag">#этонелечится</span>
+      </p>
     </div>
     <div class="instagram__container">
       <div class="instagram__info">
@@ -82,19 +84,25 @@ export default {};
 .purple-strip {
   max-width: 1320px;
   background-color: #613a93;
-  font-weight: normal;
-  font-size: 30px;
-  line-height: 46px;
   text-align: center;
   text-transform: uppercase;
-  color: #fff;
-  white-space: pre;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
+.purple-strip__title {
+  max-width: 750px;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 46px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
 .hashtag {
-  font-weight: 900;
+  font-weight: 800;
+  font-size: 44px;
 }
 
 .instagram__container {
@@ -113,12 +121,12 @@ export default {};
   font-size: 32px;
   line-height: 36px;
   border-bottom: 2px solid #000;
-  max-width: 177px;
+  width: fit-content;
 }
 
 .instagram__description {
   padding-top: 32px;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #666;
